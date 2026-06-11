@@ -1,0 +1,77 @@
+{
+  "relationships": {
+    "single": {
+      "name": "Single",
+      "happiness_modifier": 0,
+      "cost": 0,
+      "description": "You are single and free"
+    },
+    "dating": {
+      "name": "Dating",
+      "happiness_modifier": 5,
+      "cost": 200,
+      "description": "In a casual relationship"
+    },
+    "serious": {
+      "name": "In a Serious Relationship",
+      "happiness_modifier": 10,
+      "cost": 400,
+      "description": "Committed to someone special"
+    },
+    "married": {
+      "name": "Married",
+      "happiness_modifier": 15,
+      "cost": 600,
+      "description": "Married to your soulmate"
+    },
+    "divorced": {
+      "name": "Divorced",
+      "happiness_modifier": -5,
+      "cost": 0,
+      "description": "Going through or recovering from divorce"
+    }
+  },
+  "education": {
+    "none": {
+      "name": "No Formal Education",
+      "intelligence_modifier": 0,
+      "salary_modifier": 0,
+      "years": 0
+    },
+    "highschool": {
+      "name": "High School Diploma",
+      "intelligence_modifier": 10,
+      "salary_modifier": 1.0,
+      "years": 4,
+      "description": "Basic education and certification"
+    },
+    "associates": {
+      "name": "Associate's Degree",
+      "intelligence_modifier": 20,
+      "salary_modifier": 1.15,
+      "years": 2,
+      "description": "Two years of higher education"
+    },
+    "bachelors": {
+      "name": "Bachelor's Degree",
+      "intelligence_modifier": 30,
+      "salary_modifier": 1.35,
+      "years": 4,
+      "description": "Four year university degree"
+    },
+    "masters": {
+      "name": "Master's Degree",
+      "intelligence_modifier": 40,
+      "salary_modifier": 1.55,
+      "years": 2,
+      "description": "Advanced degree for specialization"
+    },
+    "phd": {
+      "name": "PhD",
+      "intelligence_modifier": 50,
+      "salary_modifier": 1.75,
+      "years": 5,
+      "description": "Doctorate degree - highest education level"
+    }
+  }
+}
