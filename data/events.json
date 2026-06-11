@@ -1,0 +1,179 @@
+{
+  "events": [
+    {
+      "id": "birthday_25",
+      "condition": "age === 25",
+      "message": "🎂 You've turned 25! A quarter of a century.",
+      "type": "neutral",
+      "effects": {}
+    },
+    {
+      "id": "birthday_30",
+      "condition": "age === 30",
+      "message": "🎂 You've reached 30! Time for reflection.",
+      "type": "positive",
+      "effects": {"happiness": 5}
+    },
+    {
+      "id": "birthday_40",
+      "condition": "age === 40",
+      "message": "🎂 40 years young! You're hitting your prime.",
+      "type": "positive",
+      "effects": {}
+    },
+    {
+      "id": "birthday_50",
+      "condition": "age === 50",
+      "message": "🎂 You've made it to 50! Still got some years ahead.",
+      "type": "positive",
+      "effects": {"happiness": 10}
+    },
+    {
+      "id": "depression_low_happiness",
+      "condition": "happiness < 20",
+      "message": "😔 You're feeling depressed. Consider visiting a therapist.",
+      "type": "negative",
+      "effects": {"health": -5, "happiness": -10}
+    },
+    {
+      "id": "illness_low_health",
+      "condition": "health < 30",
+      "message": "🤒 You've gotten seriously ill! Visit a doctor immediately.",
+      "type": "negative",
+      "effects": {"health": -15, "happiness": -10}
+    },
+    {
+      "id": "excellent_health",
+      "condition": "health > 80 && happiness > 80",
+      "message": "😊 Life is great! You feel fortunate and healthy.",
+      "type": "positive",
+      "effects": {"happiness": 10}
+    },
+    {
+      "id": "inheritance",
+      "condition": "bank > 50000",
+      "message": "💰 You received an inheritance from a relative!",
+      "type": "positive",
+      "effects": {"bank": 10000, "happiness": 15}
+    },
+    {
+      "id": "debt_crisis",
+      "condition": "bank < 0",
+      "message": "💳 You're in debt! Time to work harder and earn money.",
+      "type": "negative",
+      "effects": {"health": -5, "happiness": -15}
+    },
+    {
+      "id": "promotion",
+      "condition": "random 0.15 && salary > 0",
+      "message": "🎉 Congratulations! You got a promotion at work!",
+      "type": "positive",
+      "effects": {"happiness": 15, "salary": 10000}
+    },
+    {
+      "id": "job_loss",
+      "condition": "random 0.05 && salary > 0",
+      "message": "😞 Oh no! You lost your job. Time to find a new one.",
+      "type": "negative",
+      "effects": {"happiness": -20, "health": -5, "salary": 0}
+    },
+    {
+      "id": "accident",
+      "condition": "random 0.08",
+      "message": "💔 You had an accident. Your health took a hit.",
+      "type": "negative",
+      "effects": {"health": -25}
+    },
+    {
+      "id": "lottery_win",
+      "condition": "random 0.02",
+      "message": "🎰 Jackpot! You won the lottery!",
+      "type": "positive",
+      "effects": {"bank": 50000, "happiness": 30}
+    },
+    {
+      "id": "friend_visit",
+      "condition": "random 0.10",
+      "message": "👋 A close friend surprised you with a visit!",
+      "type": "positive",
+      "effects": {"happiness": 10}
+    },
+    {
+      "id": "family_call",
+      "condition": "random 0.08",
+      "message": "☎️ Your family called. Nice to hear from them.",
+      "type": "positive",
+      "effects": {"happiness": 8}
+    },
+    {
+      "id": "new_friend",
+      "condition": "random 0.12",
+      "message": "🤝 You made a new friend!",
+      "type": "positive",
+      "effects": {"happiness": 12, "intelligence": 2}
+    },
+    {
+      "id": "bad_argument",
+      "condition": "random 0.07",
+      "message": "😠 You had a terrible argument with someone.",
+      "type": "negative",
+      "effects": {"happiness": -15}
+    },
+    {
+      "id": "car_breakdown",
+      "condition": "random 0.06",
+      "message": "🚗 Your car broke down! Expensive repairs needed.",
+      "type": "negative",
+      "effects": {"bank": -3000, "happiness": -10}
+    },
+    {
+      "id": "found_money",
+      "condition": "random 0.05",
+      "message": "💵 You found money on the street!",
+      "type": "positive",
+      "effects": {"bank": 500, "happiness": 5}
+    },
+    {
+      "id": "raise",
+      "condition": "random 0.08 && salary > 0",
+      "message": "📈 You got a raise! Your salary increased.",
+      "type": "positive",
+      "effects": {"happiness": 12, "salary": 5000}
+    },
+    {
+      "id": "award",
+      "condition": "random 0.07 && intelligence > 70",
+      "message": "🏆 You received an award for your excellence!",
+      "type": "positive",
+      "effects": {"happiness": 15, "salary": 3000}
+    },
+    {
+      "id": "health_scare",
+      "condition": "random 0.06 && health < 50",
+      "message": "😰 Health scare! Time to take better care of yourself.",
+      "type": "negative",
+      "effects": {"health": -10, "happiness": -10}
+    },
+    {
+      "id": "retirement",
+      "condition": "age >= 65",
+      "message": "🏖️ Congratulations on your retirement! Enjoy your golden years.",
+      "type": "positive",
+      "effects": {"happiness": 10}
+    },
+    {
+      "id": "breakup",
+      "condition": "random 0.04",
+      "message": "💔 Your relationship ended. That's tough.",
+      "type": "negative",
+      "effects": {"happiness": -20}
+    },
+    {
+      "id": "wedding",
+      "condition": "random 0.05 && age > 25",
+      "message": "💒 Congratulations! You got married!",
+      "type": "positive",
+      "effects": {"happiness": 25, "bank": -10000}
+    }
+  ]
+}
