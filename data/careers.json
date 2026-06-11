@@ -1,0 +1,212 @@
+{
+  "careers": {
+    "student": {
+      "name": "Student",
+      "salary": 0,
+      "intelligence": 5,
+      "happiness": -2,
+      "description": "Focus on your education and build knowledge",
+      "minIntelligence": 0
+    },
+    "fastfood": {
+      "name": "Fast Food Worker",
+      "salary": 20000,
+      "intelligence": 1,
+      "happiness": -3,
+      "health": -2,
+      "description": "Work the counter at a fast food restaurant",
+      "minIntelligence": 0
+    },
+    "barista": {
+      "name": "Barista",
+      "salary": 25000,
+      "intelligence": 2,
+      "happiness": 1,
+      "health": -1,
+      "description": "Serve coffee and build relationships with customers",
+      "minIntelligence": 0
+    },
+    "retailworker": {
+      "name": "Retail Worker",
+      "salary": 28000,
+      "intelligence": 2,
+      "happiness": -1,
+      "health": -1,
+      "description": "Work in retail sales and customer service",
+      "minIntelligence": 0
+    },
+    "security": {
+      "name": "Security Guard",
+      "salary": 35000,
+      "intelligence": 1,
+      "happiness": -4,
+      "health": 1,
+      "description": "Protect and monitor facilities",
+      "minIntelligence": 0
+    },
+    "electrician": {
+      "name": "Electrician",
+      "salary": 65000,
+      "intelligence": 6,
+      "happiness": 2,
+      "health": -2,
+      "description": "Install and repair electrical systems",
+      "minIntelligence": 40
+    },
+    "mechanic": {
+      "name": "Mechanic",
+      "salary": 60000,
+      "intelligence": 5,
+      "happiness": 1,
+      "health": -2,
+      "description": "Repair and maintain vehicles",
+      "minIntelligence": 35
+    },
+    "nurse": {
+      "name": "Nurse",
+      "salary": 75000,
+      "intelligence": 8,
+      "happiness": 3,
+      "health": -3,
+      "description": "Provide healthcare and patient care",
+      "minIntelligence": 70
+    },
+    "teacher": {
+      "name": "Teacher",
+      "salary": 70000,
+      "intelligence": 8,
+      "happiness": 5,
+      "health": -1,
+      "description": "Educate and inspire students",
+      "minIntelligence": 65
+    },
+    "accountant": {
+      "name": "Accountant",
+      "salary": 80000,
+      "intelligence": 9,
+      "happiness": 0,
+      "health": -2,
+      "description": "Manage finances and accounting",
+      "minIntelligence": 70
+    },
+    "office": {
+      "name": "Office Worker",
+      "salary": 50000,
+      "intelligence": 3,
+      "happiness": -1,
+      "health": -2,
+      "description": "Work in a corporate office environment",
+      "minIntelligence": 30
+    },
+    "manager": {
+      "name": "Manager",
+      "salary": 90000,
+      "intelligence": 7,
+      "happiness": 1,
+      "health": -3,
+      "description": "Manage teams and projects",
+      "minIntelligence": 65
+    },
+    "lawyer": {
+      "name": "Lawyer",
+      "salary": 130000,
+      "intelligence": 12,
+      "happiness": 2,
+      "health": -4,
+      "description": "Provide legal services and advice",
+      "minIntelligence": 85
+    },
+    "doctor": {
+      "name": "Doctor",
+      "salary": 150000,
+      "intelligence": 15,
+      "happiness": 4,
+      "health": -3,
+      "description": "Provide medical care and save lives",
+      "minIntelligence": 90
+    },
+    "engineer": {
+      "name": "Engineer",
+      "salary": 110000,
+      "intelligence": 12,
+      "happiness": 2,
+      "health": -2,
+      "description": "Design and build engineering solutions",
+      "minIntelligence": 85
+    },
+    "softwareengineer": {
+      "name": "Software Engineer",
+      "salary": 120000,
+      "intelligence": 13,
+      "happiness": 3,
+      "health": -3,
+      "description": "Develop software and applications",
+      "minIntelligence": 80
+    },
+    "datascientist": {
+      "name": "Data Scientist",
+      "salary": 125000,
+      "intelligence": 14,
+      "happiness": 3,
+      "health": -2,
+      "description": "Analyze data and develop AI models",
+      "minIntelligence": 85
+    },
+    "artist": {
+      "name": "Artist",
+      "salary": 40000,
+      "happiness": 8,
+      "intelligence": 2,
+      "attractiveness": 3,
+      "health": 1,
+      "description": "Create art and express yourself",
+      "minIntelligence": 20
+    },
+    "musician": {
+      "name": "Musician",
+      "salary": 60000,
+      "happiness": 10,
+      "intelligence": 3,
+      "attractiveness": 5,
+      "description": "Perform and create music",
+      "minIntelligence": 30
+    },
+    "actor": {
+      "name": "Actor",
+      "salary": 80000,
+      "happiness": 8,
+      "intelligence": 4,
+      "attractiveness": 8,
+      "description": "Perform in film and television",
+      "minIntelligence": 40
+    },
+    "youtuber": {
+      "name": "Content Creator",
+      "salary": 70000,
+      "happiness": 9,
+      "intelligence": 4,
+      "attractiveness": 4,
+      "description": "Create content for online platforms",
+      "minIntelligence": 35
+    },
+    "ceo": {
+      "name": "CEO",
+      "salary": 250000,
+      "intelligence": 12,
+      "happiness": 4,
+      "health": -5,
+      "description": "Lead a company as CEO",
+      "minIntelligence": 88
+    },
+    "politician": {
+      "name": "Politician",
+      "salary": 140000,
+      "intelligence": 10,
+      "happiness": 2,
+      "health": -4,
+      "attractiveness": 3,
+      "description": "Serve in government",
+      "minIntelligence": 75
+    }
+  }
+}
