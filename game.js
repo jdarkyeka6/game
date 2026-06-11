@@ -1,3 +1,35 @@
+// Global data storage
+let gameData = {
+    careers: {},
+    activities: {},
+    events: [],
+    names: {}
+};
+
+// Load all JSON data files
+async function loadGameData() {
+    try {
+        const [careersRes, activitiesRes, eventsRes, namesRes] = await Promise.all([
+            fetch('data/careers.json'),
+            fetch('data/activities.json'),
+            fetch('data/events.json'),
+            fetch('data/names.json')
+        ]);
+
+        gameData.careers = await careersRes.json();
+        gameData.activities = await activitiesRes.json();
+        gameData.events = await eventsRes.json();
+        gameData.names = await namesRes.json();
+
+        console.log('Game data loaded successfully');
+    } catch (error) {
+        console.error('Error loading game data:', error);
+    }
+}
+
+// Load data on page load
+document.addEventListener('DOMContentLoaded', loadGameData);
+
 // Game State
 const gameState = {
     player: null,
@@ -25,6 +57,10 @@ class Player {
         this.salary = 0;
         this.bank = 5000;
         
+        // Relationships
+        this.relationshipStatus = 'single';
+        this.education = 'none';
+        
         // Life events
         this.events = ['Welcome to LifeSim! Start your adventure.'];
         this.lifeSpan = 80 + Math.floor(Math.random() * 10);
@@ -35,136 +71,18 @@ class Player {
     }
 }
 
-// Career Data
-const careers = {
-    student: {
-        name: 'Student',
-        salary: 0,
-        intelligence: 5,
-        happiness: -2
-    },
-    office: {
-        name: 'Office Worker',
-        salary: 50000,
-        intelligence: 2,
-        happiness: -1,
-        health: -1
-    },
-    doctor: {
-        name: 'Doctor',
-        salary: 120000,
-        intelligence: 10,
-        happiness: 2,
-        requires: 'intelligence >= 80'
-    },
-    engineer: {
-        name: 'Engineer',
-        salary: 100000,
-        intelligence: 8,
-        happiness: 1,
-        requires: 'intelligence >= 75'
-    },
-    artist: {
-        name: 'Artist',
-        salary: 40000,
-        happiness: 5,
-        intelligence: 1,
-        attractiveness: 2
-    }
-};
-
-// Activities and their effects
-const activities = {
-    school: {
-        name: 'Study',
-        intelligence: 10,
-        happiness: -5,
-        health: -2
-    },
-    work: {
-        name: 'Work',
-        happiness: -3,
-        health: -2,
-        salary: 'bonus'
-    },
-    exercise: {
-        name: 'Exercise',
-        health: 15,
-        attractiveness: 5,
-        happiness: 8
-    },
-    social: {
-        name: 'Socialize',
-        happiness: 15,
-        health: 3
-    },
-    party: {
-        name: 'Party',
-        happiness: 20,
-        health: -10,
-        intelligence: -2
-    },
-    rest: {
-        name: 'Rest',
-        health: 20,
-        happiness: 5
-    },
-    medical: {
-        name: 'Doctor Visit',
-        health: 30,
-        bank: -500
-    },
-    travel: {
-        name: 'Travel',
-        happiness: 25,
-        bank: -2000,
-        health: -5
-    }
-};
-
-// Life Events
-const lifeEvents = [
-    {
-        condition: (p) => p.age === 25,
-        event: 'You\'ve just turned 25! Time to plan your future.',
-        type: 'neutral'
-    },
-    {
-        condition: (p) => p.happiness < 20 && Math.random() < 0.3,
-        event: 'Depression hits you. Visit a doctor!',
-        type: 'negative',
-        effect: { health: -5 }
-    },
-    {
-        condition: (p) => p.health < 30 && Math.random() < 0.3,
-        event: 'You\'ve gotten sick! Rest and recover.',
-        type: 'negative',
-        effect: { health: -10 }
-    },
-    {
-        condition: (p) => p.age === 30,
-        event: 'You\'ve reached 30! Reflection time.',
-        type: 'positive'
-    },
-    {
-        condition: (p) => p.health > 80 && p.happiness > 80 && Math.random() < 0.2,
-        event: 'Life is great! You feel fortunate.',
-        type: 'positive',
-        effect: { happiness: 10 }
-    },
-    {
-        condition: (p) => p.bank > 50000 && Math.random() < 0.1,
-        event: 'You received an inheritance!',
-        type: 'positive',
-        effect: { bank: 10000 }
-    },
-    {
-        condition: (p) => p.bank < 0,
-        event: 'You\'re in debt! Time to work harder.',
-        type: 'negative',
-        effect: { health: -5, happiness: -15 }
-    }
-];
+// Generate random name
+function generateRandomName(gender) {
+    if (!gameData.names.names) return 'John Doe';
+    
+    const nameList = gameData.names.names[gender];
+    const lastNameList = gameData.names.lastNames;
+    
+    const firstName = nameList[Math.floor(Math.random() * nameList.length)];
+    const lastName = lastNameList[Math.floor(Math.random() * lastNameList.length)];
+    
+    return `${firstName} ${lastName}`;
+}
 
 // Screen Management
 function showScreen(screenId) {
@@ -177,6 +95,7 @@ function showScreen(screenId) {
 // Game Flow Functions
 function startNewGame() {
     showScreen('character-creation');
+    document.getElementById('char-name').value = generateRandomName('male');
 }
 
 function createCharacter() {
@@ -188,17 +107,56 @@ function createCharacter() {
     gameState.isPlaying = true;
     
     showScreen('game-screen');
+    updateCareerButtons();
+    updateActivityButtons();
     updateUI();
 }
 
+function updateCareerButtons() {
+    const careerSection = document.getElementById('career-section');
+    careerSection.innerHTML = '<p>Choose a career path:</p>';
+    
+    Object.entries(gameData.careers.careers || {}).forEach(([key, career]) => {
+        const button = document.createElement('button');
+        button.className = 'career-btn';
+        button.onclick = () => chooseCareer(key);
+        button.innerHTML = `
+            <div style="font-weight: bold;">${career.name}</div>
+            <div style="font-size: 0.8rem; color: #10b981;">$${career.salary.toLocaleString()}</div>
+        `;
+        careerSection.appendChild(button);
+    });
+}
+
+function updateActivityButtons() {
+    const activityGrid = document.querySelector('.activity-grid');
+    activityGrid.innerHTML = '';
+    
+    Object.entries(gameData.activities.activities || {}).forEach(([key, activity]) => {
+        const button = document.createElement('button');
+        button.className = 'activity-btn';
+        button.onclick = () => performActivity(key);
+        button.innerHTML = `
+            <div class="activity-icon">${activity.icon}</div>
+            <div class="activity-name">${activity.name}</div>
+        `;
+        activityGrid.appendChild(button);
+    });
+}
+
 function chooseCareer(careerKey) {
-    const career = careers[careerKey];
+    const career = gameData.careers.careers[careerKey];
+    if (!career) return;
+    
     gameState.player.career = careerKey;
     
     // Apply career stats
-    if (career.intelligence) gameState.player.intelligence += career.intelligence;
-    if (career.happiness) gameState.player.happiness += career.happiness;
-    if (career.salary) gameState.player.salary = career.salary;
+    if (career.intelligence) gameState.player.intelligence = Math.min(100, gameState.player.intelligence + career.intelligence);
+    if (career.happiness) gameState.player.happiness = Math.max(0, Math.min(100, gameState.player.happiness + career.happiness));
+    if (career.attractiveness) gameState.player.attractiveness = Math.min(100, gameState.player.attractiveness + career.attractiveness);
+    if (career.health) gameState.player.health = Math.max(0, Math.min(100, gameState.player.health + career.health));
+    
+    gameState.player.salary = career.salary;
     
     addEvent(`You became a ${career.name}!`, 'positive');
     updateUI();
@@ -208,8 +166,16 @@ function chooseCareer(careerKey) {
 }
 
 function performActivity(activityKey) {
-    const activity = activities[activityKey];
+    const activity = gameData.activities.activities[activityKey];
+    if (!activity) return;
+    
     const player = gameState.player;
+    
+    // Check if player can afford the activity
+    if (activity.cost && player.bank < activity.cost) {
+        addEvent(`You can't afford to ${activity.name.toLowerCase()}. Need $${activity.cost}`, 'negative');
+        return;
+    }
     
     // Apply effects
     if (activity.intelligence) player.intelligence = Math.max(0, Math.min(100, player.intelligence + activity.intelligence));
@@ -217,31 +183,17 @@ function performActivity(activityKey) {
     if (activity.happiness) player.happiness = Math.max(0, Math.min(100, player.happiness + activity.happiness));
     if (activity.attractiveness) player.attractiveness = Math.max(0, Math.min(100, player.attractiveness + activity.attractiveness));
     
-    // Handle salary bonus for work
+    // Handle costs
+    if (activity.cost) player.bank -= activity.cost;
+    
+    // Handle work bonus
     if (activityKey === 'work' && player.salary > 0) {
         const dailyBonus = Math.floor(player.salary / 365);
         player.bank += dailyBonus;
     }
     
-    // Medical costs
-    if (activity.bank) player.bank += activity.bank;
-    
-    addEvent(`${activity.name}: ${getActivityMessage(activityKey)}`, 'neutral');
+    addEvent(`${activity.name}: ${activity.description}`, 'neutral');
     updateUI();
-}
-
-function getActivityMessage(activityKey) {
-    const messages = {
-        school: 'You learned something new today.',
-        work: 'You worked hard and earned some money.',
-        exercise: 'You feel stronger and healthier.',
-        social: 'You had a great time with friends.',
-        party: 'What a night! Time to recover.',
-        rest: 'You feel refreshed after a good sleep.',
-        medical: 'The doctor checked you out.',
-        travel: 'You had an amazing journey.'
-    };
-    return messages[activityKey] || 'You did something.';
 }
 
 function nextYear() {
@@ -259,26 +211,23 @@ function nextYear() {
         player.bank += player.salary;
     }
     
-    // Check life events
-    lifeEvents.forEach(event => {
-        if (event.condition(player)) {
-            addEvent(event.event, event.type);
-            if (event.effect) {
-                Object.keys(event.effect).forEach(key => {
-                    player[key] = Math.max(0, Math.min(100, (player[key] || 0) + event.effect[key]));
-                });
+    // Check structured life events
+    const eventArray = gameData.events.events || [];
+    eventArray.forEach(event => {
+        if (evaluateEventCondition(event.condition, player)) {
+            addEvent(event.message, event.type);
+            if (event.effects) {
+                applyEffects(player, event.effects);
             }
         }
     });
     
-    // Add random event
+    // Add random life event
     if (Math.random() < 0.3) {
         const randomEvent = generateRandomEvent(player);
         addEvent(randomEvent.message, randomEvent.type);
-        if (randomEvent.effect) {
-            Object.keys(randomEvent.effect).forEach(key => {
-                player[key] = Math.max(0, Math.min(100, (player[key] || 0) + randomEvent.effect[key]));
-            });
+        if (randomEvent.effects) {
+            applyEffects(player, randomEvent.effects);
         }
     }
     
@@ -291,19 +240,58 @@ function nextYear() {
     updateUI();
 }
 
+function evaluateEventCondition(condition, player) {
+    // Simple condition parser for events
+    if (condition.includes('age ===')) {
+        const age = parseInt(condition.match(/\d+/)[0]);
+        return player.age === age;
+    }
+    if (condition.includes('health <')) {
+        const health = parseInt(condition.match(/\d+/)[0]);
+        return player.health < health;
+    }
+    if (condition.includes('happiness <')) {
+        const happiness = parseInt(condition.match(/\d+/)[0]);
+        return player.happiness < happiness;
+    }
+    if (condition.includes('salary > 0')) {
+        return player.salary > 0;
+    }
+    if (condition.includes('bank <')) {
+        const bank = parseInt(condition.match(/\d+/)[0]);
+        return player.bank < bank;
+    }
+    if (condition.includes('random')) {
+        const chance = parseFloat(condition.match(/[\d.]+/)[0]);
+        return Math.random() < chance;
+    }
+    return false;
+}
+
+function applyEffects(player, effects) {
+    if (effects.health) player.health = Math.max(0, Math.min(100, player.health + effects.health));
+    if (effects.happiness) player.happiness = Math.max(0, Math.min(100, player.happiness + effects.happiness));
+    if (effects.intelligence) player.intelligence = Math.max(0, Math.min(100, player.intelligence + effects.intelligence));
+    if (effects.attractiveness) player.attractiveness = Math.max(0, Math.min(100, player.attractiveness + effects.attractiveness));
+    if (effects.bank) player.bank = Math.max(0, player.bank + effects.bank);
+    if (effects.salary) player.salary += effects.salary;
+}
+
 function generateRandomEvent(player) {
-    const events = [
-        { message: 'You won the lottery!', type: 'positive', effect: { bank: 25000, happiness: 20 } },
-        { message: 'A friend surprised you with a visit!', type: 'positive', effect: { happiness: 10 } },
-        { message: 'You got a promotion at work!', type: 'positive', effect: { salary: 5000, happiness: 15 } },
-        { message: 'Your car broke down. Expensive repair.', type: 'negative', effect: { bank: -3000, happiness: -10 } },
-        { message: 'You caught a cold.', type: 'negative', effect: { health: -20 } },
-        { message: 'A family member called. Nice chat!', type: 'positive', effect: { happiness: 8 } },
-        { message: 'You made a new friend!', type: 'positive', effect: { happiness: 12, intelligence: 2 } },
-        { message: 'Your internet went down. Frustrating day.', type: 'negative', effect: { happiness: -5 } }
+    const randomEvents = [
+        { message: '🎰 You won the lottery!', type: 'positive', effects: { bank: 25000, happiness: 20 } },
+        { message: '👋 A friend surprised you with a visit!', type: 'positive', effects: { happiness: 10 } },
+        { message: '🎉 You got a promotion at work!', type: 'positive', effects: { salary: 5000, happiness: 15 } },
+        { message: '🚗 Your car broke down. Expensive repair.', type: 'negative', effects: { bank: -3000, happiness: -10 } },
+        { message: '🤒 You caught a cold.', type: 'negative', effects: { health: -20 } },
+        { message: '☎️ A family member called. Nice chat!', type: 'positive', effects: { happiness: 8 } },
+        { message: '🤝 You made a new friend!', type: 'positive', effects: { happiness: 12, intelligence: 2 } },
+        { message: '😠 You had a terrible argument with someone.', type: 'negative', effects: { happiness: -15 } },
+        { message: '🏆 You won an award!', type: 'positive', effects: { happiness: 15, salary: 3000 } },
+        { message: '💵 You found money on the street!', type: 'positive', effects: { bank: 500 } }
     ];
     
-    return events[Math.floor(Math.random() * events.length)];
+    return randomEvents[Math.floor(Math.random() * randomEvents.length)];
 }
 
 function addEvent(message, type = 'neutral') {
@@ -313,6 +301,7 @@ function addEvent(message, type = 'neutral') {
     eventElement.textContent = message;
     eventLog.appendChild(eventElement);
     eventLog.scrollTop = eventLog.scrollHeight;
+    gameState.player.events.push(message);
 }
 
 function updateUI() {
@@ -329,11 +318,15 @@ function updateUI() {
     updateStatBar('intelligence', player.intelligence);
     updateStatBar('attractiveness', player.attractiveness);
     
-    document.getElementById('bank-value').textContent = player.bank.toLocaleString();
+    document.getElementById('bank-value').textContent = '$' + player.bank.toLocaleString();
     
     // Update career
-    const jobInfo = player.career ? careers[player.career].name : 'Unemployed';
-    document.getElementById('job-info').textContent = jobInfo;
+    if (player.career && gameData.careers.careers) {
+        const jobInfo = gameData.careers.careers[player.career].name;
+        document.getElementById('job-info').textContent = jobInfo;
+    } else {
+        document.getElementById('job-info').textContent = 'Unemployed';
+    }
 }
 
 function updateStatBar(statName, value) {
@@ -347,7 +340,7 @@ function endGame() {
     const player = gameState.player;
     document.getElementById('final-name').textContent = player.name;
     document.getElementById('final-age').textContent = player.age;
-    document.getElementById('final-wealth').textContent = player.bank.toLocaleString();
+    document.getElementById('final-wealth').textContent = '$' + player.bank.toLocaleString();
     document.getElementById('final-happiness').textContent = player.happiness;
     
     showScreen('game-over');
