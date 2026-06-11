@@ -1,0 +1,157 @@
+{
+  "activities": {
+    "school": {
+      "name": "Study",
+      "icon": "🎓",
+      "intelligence": 10,
+      "happiness": -5,
+      "health": -2,
+      "cost": 0,
+      "description": "Focus on your education and expand your knowledge"
+    },
+    "work": {
+      "name": "Work",
+      "icon": "💼",
+      "happiness": -3,
+      "health": -2,
+      "salary": "bonus",
+      "cost": 0,
+      "description": "Work at your current job and earn income"
+    },
+    "exercise": {
+      "name": "Exercise",
+      "icon": "💪",
+      "health": 15,
+      "attractiveness": 5,
+      "happiness": 8,
+      "cost": 0,
+      "description": "Stay fit and improve your health and looks"
+    },
+    "social": {
+      "name": "Socialize",
+      "icon": "👥",
+      "happiness": 15,
+      "health": 3,
+      "cost": 0,
+      "description": "Spend time with friends and build relationships"
+    },
+    "party": {
+      "name": "Party",
+      "icon": "🎉",
+      "happiness": 20,
+      "health": -10,
+      "intelligence": -2,
+      "cost": 500,
+      "description": "Have a wild time at a party"
+    },
+    "gaming": {
+      "name": "Gaming",
+      "icon": "🎮",
+      "happiness": 12,
+      "health": -5,
+      "intelligence": 1,
+      "cost": 0,
+      "description": "Play video games and relax"
+    },
+    "reading": {
+      "name": "Reading",
+      "icon": "📚",
+      "intelligence": 8,
+      "happiness": 5,
+      "health": 2,
+      "cost": 0,
+      "description": "Read books and expand your mind"
+    },
+    "meditation": {
+      "name": "Meditation",
+      "icon": "🧘",
+      "happiness": 12,
+      "health": 8,
+      "stress": -10,
+      "cost": 0,
+      "description": "Meditate and find inner peace"
+    },
+    "cooking": {
+      "name": "Cooking",
+      "icon": "👨‍🍳",
+      "happiness": 8,
+      "health": 5,
+      "intelligence": 3,
+      "cost": 50,
+      "description": "Cook a delicious meal"
+    },
+    "rest": {
+      "name": "Rest",
+      "icon": "😴",
+      "health": 20,
+      "happiness": 5,
+      "cost": 0,
+      "description": "Get a good night's sleep and recover"
+    },
+    "medical": {
+      "name": "Doctor Visit",
+      "icon": "⚕️",
+      "health": 30,
+      "cost": 500,
+      "description": "Visit a doctor to improve your health"
+    },
+    "therapy": {
+      "name": "Therapy",
+      "icon": "🛋️",
+      "happiness": 15,
+      "health": 10,
+      "cost": 300,
+      "description": "Talk to a therapist about your feelings"
+    },
+    "gym": {
+      "name": "Gym Membership",
+      "icon": "🏋️",
+      "health": 20,
+      "attractiveness": 8,
+      "happiness": 6,
+      "cost": 100,
+      "description": "Work out at the gym with equipment"
+    },
+    "travel": {
+      "name": "Travel",
+      "icon": "✈️",
+      "happiness": 25,
+      "health": -5,
+      "intelligence": 2,
+      "cost": 2000,
+      "description": "Take a vacation and explore the world"
+    },
+    "shopping": {
+      "name": "Shopping",
+      "icon": "🛍️",
+      "happiness": 10,
+      "attractiveness": 3,
+      "cost": 500,
+      "description": "Buy new clothes and items"
+    },
+    "concert": {
+      "name": "Concert",
+      "icon": "🎵",
+      "happiness": 18,
+      "cost": 200,
+      "description": "Attend a live concert"
+    },
+    "volunteer": {
+      "name": "Volunteer",
+      "icon": "🤝",
+      "happiness": 10,
+      "health": 5,
+      "intelligence": 3,
+      "cost": 0,
+      "description": "Help others and give back to the community"
+    },
+    "date": {
+      "name": "Go on a Date",
+      "icon": "💕",
+      "happiness": 15,
+      "attractiveness": 2,
+      "cost": 150,
+      "description": "Spend romantic time with someone special"
+    }
+  }
+}
